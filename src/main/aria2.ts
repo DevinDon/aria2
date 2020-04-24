@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import * as WebSocket from 'ws';
+// import * as WebSocket from 'ws';
 import { Task } from './model';
 import { Pending } from './pending';
 
@@ -74,7 +74,7 @@ export class Aria2 extends EventEmitter {
 
   }
 
-  private parse(event: WebSocket.MessageEvent) {
+  private parse(event: MessageEvent) {
     const data: JSONRPCResponse = JSON.parse(event.data.toString());
     const pending = this.map.get(data.id);
     if (data.error) {
@@ -97,7 +97,11 @@ export class Aria2 extends EventEmitter {
    */
   private async send<T = any>(request: JSONRPCRequest): Promise<T> {
     const pending = this.map.get(request.id);
-    this.socket.send(JSON.stringify(request), error => error && pending?.reject(error));
+    try {
+      this.socket.send(JSON.stringify(request));
+    } catch (error) {
+      pending?.reject(error);
+    }
     return pending?.promise;
   }
 
@@ -111,7 +115,14 @@ export class Aria2 extends EventEmitter {
    * It will return nothing when success.
    */
   async connect() {
-    this.socket = new WebSocket(this.url);
+    // 这tm是不是有个 bug，为啥 if (WebSocket) 会报错？？？
+    // 尝试使用原生 WebSocket
+    try {
+      this.socket = new WebSocket(this.url);
+    } catch (error) {
+      const WS = require('ws');
+      this.socket = new WS(this.url);
+    }
     this.socket.onmessage = event => this.parse(event);
     return new Promise((resolve, reject) => {
       this.socket.onopen = event => resolve(event);
