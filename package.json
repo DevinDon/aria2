@@ -1,7 +1,7 @@
 {
-  "name": "ts-template",
+  "name": "@iinfinity/aria2",
   "version": "0.0.0",
-  "description": "TypeScript Template Porject.",
+  "description": "Aria2 lib.",
   "main": "dist/index.js",
   "directories": {
     "doc": "docs",
@@ -47,10 +47,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DevinDon/ts-template.git"
+    "url": "git+https://github.com/DevinDon/aria2.git"
   },
   "bugs": {
-    "url": "https://github.com/DevinDon/ts-template/issues"
+    "url": "https://github.com/DevinDon/aria2/issues"
   },
-  "homepage": "https://github.com/DevinDon/ts-template"
+  "homepage": "https://github.com/DevinDon/aria2"
 }
