@@ -28,7 +28,7 @@
   ],
   "author": "IInfinity <I.INF@Outlook.com> (https://blog.don.red/)",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "dependencies": {},
   "devDependencies": {
     "@types/jasmine": "3.5.10",
