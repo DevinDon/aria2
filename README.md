@@ -1,6 +1,34 @@
 # Aria2
 
-Aria2 lib.
+Aria2 lib, see [aria2 document](https://aria2.github.io/manual/en/html/aria2c.html#methods) for more detail.
+
+# Usage
+
+```typescript
+import { Aria2 } from '@iinfinity/aria2'
+
+async function main() {
+  const aria2 = new Aria2({
+    host: 'localhost',
+    port: 6800,
+    secure: false,
+    path: '/jsonrpc',
+    secret: 'SECRET'
+  });
+  await aria2.connect();
+  const gid = aria2.addUri('http://example.com/path/to/download.file');
+  const tasks = aria2.tellActive();
+  aria2.disconnect();
+}
+
+main();
+```
+
+# Change Log
+
+## 0.1.0 => 0.1.1
+
+- perf(aria2): 首先尝试原生 WebSocket，如果不存在则使用 ws
 
 # [THE MIT LICENSE](https://raw.githubusercontent.com/DevinDon/license/master/THE%20MIT%20LICENSE)
 
