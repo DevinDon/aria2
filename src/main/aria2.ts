@@ -1,5 +1,6 @@
 import { EventEmitter } from 'events';
 import * as WebSocket from 'ws';
+import { TellActiveResponse } from './model';
 import { Pending } from './pending';
 
 export interface Option {
@@ -126,16 +127,32 @@ export class Aria2 extends EventEmitter {
    * <https://aria2.github.io/manual/en/html/aria2c.html#aria2.addUri>
    *
    * `aria2.addUri(uris[, options[, position]])`
+   *
+   * 添加若干个下载任务。
+   *
+   * @param {string[]} uris 下载任务链接，见官方文档。
+   * @param {any} options 见官方文档，我也不知道是啥。
+   * @param {number} position 我也不知道是啥，可能是插入顺序之类的。
+   * @returns {Promise<string>} 返回任务的 GID。
    */
-  async addUri(uris: string[], options?: any, position?: number) {
+  async addUri(uris: string[], options?: any, position?: number): Promise<string> {
     const request = this.generate('addUri', [uris, options, position]);
     // console.log(request);
     return this.send<string>(request);
   }
 
-  async tellActive() {
+  /**
+   * <https://aria2.github.io/manual/en/html/aria2c.html#aria2.tellActive>
+   *
+   * `aria2.tellActive([secret][, keys])`
+   *
+   * 获取所有正在进行的下载任务。
+   *
+   * @returns {Promise<TellActiveResponse[]>} 返回类型详见 `model` 源代码。
+   */
+  async tellActive(): Promise<TellActiveResponse[]> {
     const request = this.generate('tellActive');
-    return this.send<string[]>(request);
+    return this.send<TellActiveResponse[]>(request);
   }
 
 }
