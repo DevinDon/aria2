@@ -180,6 +180,95 @@ export class Aria2 extends EventEmitter {
   }
 
   /**
+   * <https://aria2.github.io/manual/en/html/aria2c.html#aria2.remove>
+   *
+   * `aria2.remove([secret, ]gid)`
+   *
+   * 移除指定的任务。
+   *
+   * @param {string} gid 任务的 GID。
+   * @returns {Promise<string>} 返回被移除任务的 GID。
+   */
+  async remove(gid: string): Promise<string> {
+    const request = this.generate('remove', [gid]);
+    return this.send<string>(request);
+  }
+
+  /**
+   * <https://aria2.github.io/manual/en/html/aria2c.html#aria2.pause>
+   *
+   * `aria2.pause([secret, ]gid)`
+   *
+   * 暂停指定的任务。
+   *
+   * @param {string} gid 任务的 GID。
+   * @returns {Promise<string>} 返回被暂停任务的 GID。
+   */
+  async pause(gid: string): Promise<string> {
+    const request = this.generate('pause', [gid]);
+    return this.send<string>(request);
+  }
+
+  /**
+   * <https://aria2.github.io/manual/en/html/aria2c.html#aria2.pauseAll>
+   *
+   * `aria2.pauseAll([secret])`
+   *
+   * 暂停所有任务。
+   *
+   * @returns {Promise<'OK'>} 返回 `OK`。
+   */
+  async pauseAll(): Promise<'OK'> {
+    const request = this.generate('pauseAll');
+    return this.send<'OK'>(request);
+  }
+
+  /**
+   * <https://aria2.github.io/manual/en/html/aria2c.html#aria2.unpause>
+   *
+   * `aria2.unpause([secret, ]gid)`
+   *
+   * 继续指定的任务。
+   *
+   * @param {string} gid 任务的 GID。
+   * @returns {Promise<string>} 返回被继续任务的 GID。
+   */
+  async unpause(gid: string): Promise<string> {
+    const request = this.generate('unpause', [gid]);
+    return this.send<string>(request);
+  }
+
+  /**
+   * <https://aria2.github.io/manual/en/html/aria2c.html#aria2.unpauseAll>
+   *
+   * `aria2.unpauseAll([secret])`
+   *
+   * 继续所有任务。
+   *
+   * @returns {Promise<'OK'>} 返回 `OK`。
+   */
+  async unpauseAll(): Promise<'OK'> {
+    const request = this.generate('unpauseAll');
+    return this.send<'OK'>(request);
+  }
+
+  /**
+   * <https://aria2.github.io/manual/en/html/aria2c.html#aria2.tellStatus>
+   *
+   * `aria2.tellStatus([secret, ]gid[, keys])`
+   *
+   * 获取任务详情。
+   *
+   * @param {string} gid 任务的 GID。
+   * @param {string[]} keys 需要获取的属性名。
+   * @returns {Promise<Task>} 返回任务详情。
+   */
+  async tellStatus(gid: string, keys?: string[]): Promise<Task> {
+    const request = this.generate('tellStatus', [gid, keys]);
+    return this.send<Task>(request);
+  }
+
+  /**
    * <https://aria2.github.io/manual/en/html/aria2c.html#aria2.tellActive>
    *
    * `aria2.tellActive([secret][, keys])`
