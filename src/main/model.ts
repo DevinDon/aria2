@@ -14,12 +14,18 @@ export interface File {
   uris: URI[];
 }
 
+export interface Bittorrent {
+  announceList: string[][];
+}
+
 export interface Task {
   bitfield: string;
   completedLength: string;
   connections: string;
   dir: string;
   downloadSpeed: string;
+  errorCode: string;
+  errorMessage: string;
   files: File[];
   gid: string;
   numPieces: string;
@@ -28,4 +34,7 @@ export interface Task {
   totalLength: string;
   uploadLength: string;
   uploadSpeed: string;
+  bittorrent: Bittorrent;
+  infoHash: string;
+  numSeeders: string;
 }
