@@ -18,6 +18,7 @@
     "debug": "node --inspect-brk -r ts-node/register src/main/index.ts",
     "dev": "cross-env MODE=DEV node -r ts-node/register src/main/index.ts",
     "pack": "webpack --config webpack.prod.js",
+    "prepublishOnly": "npm run clean && npm run build",
     "prod": "cross-env MODE=PROD node dist",
     "start": "npm run dev",
     "test": "node node_modules/jasmine/bin/jasmine.js --config=src/test/jasmine.json --reporter=jasmine-console-reporter --require=ts-node/register"
