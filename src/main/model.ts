@@ -14,7 +14,7 @@ export interface File {
   uris: URI[];
 }
 
-export interface TellActiveResponse {
+export interface Task {
   bitfield: string;
   completedLength: string;
   connections: string;
