@@ -15,8 +15,15 @@ async function main() {
   // const response = await aria2.addUri([uri]);
   // const response = await aria2.tellActive();
   // const response = await aria2.tellWaiting(0, 10).catch(err => console.error(err));
-  const response = await aria2.tellStopped(0, 10).catch(err => console.error(err));
-  console.log('Response:', JSON.stringify(response));
+  // const response = await aria2.tellStopped(0, 10).catch(err => console.error(err));
+  // const paused = await aria2.tellWaiting(0, 1);
+  // await aria2.unpause(paused[0].gid);
+  // const downloading = await aria2.tellActive();
+  // await aria2.pause(downloading[0].gid);
+  // await aria2.unpauseAll();
+  await aria2.pauseAll();
+  aria2.disconnect();
+  // console.log('Response:', JSON.stringify(response));
   // aria2.disconnect();
 
 }
