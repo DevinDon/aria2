@@ -120,7 +120,7 @@ export class Aria2 extends EventEmitter {
   }
 
   disconnect() {
-    this.socket.close(0);
+    this.socket.close();
   }
 
   /**
