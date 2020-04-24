@@ -260,10 +260,10 @@ export class Aria2 extends EventEmitter {
    * 获取任务详情。
    *
    * @param {string} gid 任务的 GID。
-   * @param {string[]} keys 需要获取的属性名。
+   * @param {[keyof Task]} keys 需要获取的属性名。
    * @returns {Promise<Task>} 返回任务详情。
    */
-  async tellStatus(gid: string, keys?: string[]): Promise<Task> {
+  async tellStatus(gid: string, keys?: [keyof Task]): Promise<Task> {
     const request = this.generate('tellStatus', [gid, keys]);
     return this.send<Task>(request);
   }
