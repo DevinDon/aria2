@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import * as WebSocket from 'ws';
-import { TellActiveResponse } from './model';
+import { Task } from './model';
 import { Pending } from './pending';
 
 export interface Option {
@@ -63,7 +63,7 @@ export class Aria2 extends EventEmitter {
       jsonrpc: '2.0',
       method: 'aria2.' + method,
       id: this.id,
-      params: params.filter(v => v)
+      params: params.filter(v => v !== undefined)
     };
 
     if (this.option.secret) {
@@ -126,7 +126,7 @@ export class Aria2 extends EventEmitter {
   /**
    * <https://aria2.github.io/manual/en/html/aria2c.html#aria2.addUri>
    *
-   * `aria2.addUri(uris[, options[, position]])`
+   * `aria2.addUri([secret], uris[, options[, position]])`
    *
    * 添加若干个下载任务。
    *
@@ -137,7 +137,6 @@ export class Aria2 extends EventEmitter {
    */
   async addUri(uris: string[], options?: any, position?: number): Promise<string> {
     const request = this.generate('addUri', [uris, options, position]);
-    // console.log(request);
     return this.send<string>(request);
   }
 
@@ -148,11 +147,27 @@ export class Aria2 extends EventEmitter {
    *
    * 获取所有正在进行的下载任务。
    *
-   * @returns {Promise<TellActiveResponse[]>} 返回类型详见 `model` 源代码。
+   * @returns {Promise<Task[]>} 返回类型详见 `model` 源代码。
    */
-  async tellActive(): Promise<TellActiveResponse[]> {
+  async tellActive(): Promise<Task[]> {
     const request = this.generate('tellActive');
-    return this.send<TellActiveResponse[]>(request);
+    return this.send<Task[]>(request);
+  }
+
+  /**
+   * <https://aria2.github.io/manual/en/html/aria2c.html#aria2.tellWaiting>
+   *
+   * `aria2.tellWaiting([secret, ]offset, num[, keys])`
+   *
+   * 获取若干个已暂停的的任务。
+   *
+   * @param {number} offset 跳过几个任务。
+   * @param {number} total 获取的任务总数。
+   * @returns {Promise<Task[]>}
+   */
+  async tellWaiting(offset: number, total: number): Promise<Task[]> {
+    const request = this.generate('tellWaiting', [offset, total]);
+    return this.send<Task[]>(request);
   }
 
 }
