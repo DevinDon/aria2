@@ -7,11 +7,12 @@ describe('Pending should work fine.', () => {
   let resolve: (value?: any | PromiseLike<any>) => void;
   let reject: (reason?: any) => void;
 
-  beforeEach(() => {
+  beforeEach(done => {
     pending = new Pending();
     promise = pending.promise;
     resolve = pending.resolve;
     reject = pending.reject;
+    done();
   });
 
   it('class Pending should instance of `Promise`', done => {
