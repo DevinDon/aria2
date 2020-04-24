@@ -141,6 +141,45 @@ export class Aria2 extends EventEmitter {
   }
 
   /**
+   * <https://aria2.github.io/manual/en/html/aria2c.html#aria2.addTorrent>
+   *
+   * `aria2.addTorrent([secret, ]torrent[, uris[, options[, position]]])`
+   *
+   * 添加种子任务，种子需要进行 Base64 编码。
+   *
+   * Add a torrent task, torrent file need to encode with base64.
+   *
+   * @param {string} torrent 种子文件，Base64 编码。
+   * @param uris 不知道。
+   * @param options 不知道。
+   * @param position 不知道。
+   * @returns {Promise<string>} 返回任务的 GID。
+   */
+  async addTorrent(torrent: string, uris?: string[], options?: any, position?: number): Promise<string> {
+    const request = this.generate('addTorrent', [torrent, uris, options, position]);
+    return this.send<string>(request);
+  }
+
+  /**
+  * <https://aria2.github.io/manual/en/html/aria2c.html#aria2.addMetalink>
+  *
+  * `aria2.addMetalink([secret, ]metalink[, options[, position]])`
+  *
+  * 添加磁力任务，磁力文件需要进行 Base64 编码。
+  *
+  * Add a metalink task, metalink file need to encode with base64.
+  *
+  * @param {string} metalink 磁力文件，Base64 编码。
+  * @param options 不知道。
+  * @param position 不知道。
+  * @returns {Promise<string>} 返回任务的 GID。
+  */
+  async addMetalink(metalink: string, options?: any, position?: number): Promise<string> {
+    const request = this.generate('addMetalink', [metalink, options, position]);
+    return this.send<string>(request);
+  }
+
+  /**
    * <https://aria2.github.io/manual/en/html/aria2c.html#aria2.tellActive>
    *
    * `aria2.tellActive([secret][, keys])`
