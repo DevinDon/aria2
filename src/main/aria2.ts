@@ -163,10 +163,26 @@ export class Aria2 extends EventEmitter {
    *
    * @param {number} offset 跳过几个任务。
    * @param {number} total 获取的任务总数。
-   * @returns {Promise<Task[]>}
+   * @returns {Promise<Task[]>} 返回类型详见 `model` 源代码。
    */
   async tellWaiting(offset: number, total: number): Promise<Task[]> {
     const request = this.generate('tellWaiting', [offset, total]);
+    return this.send<Task[]>(request);
+  }
+
+  /**
+  * <https://aria2.github.io/manual/en/html/aria2c.html#aria2.tellStopped>
+  *
+  * `aria2.tellStopped([secret, ]offset, num[, keys])`
+  *
+  * 获取若干个已停止的的任务。
+  *
+  * @param {number} offset 跳过几个任务。
+  * @param {number} total 获取的任务总数。
+  * @returns {Promise<Task[]>} 返回类型详见 `model` 源代码。
+  */
+  async tellStopped(offset: number, total: number): Promise<Task[]> {
+    const request = this.generate('tellStopped', [offset, total]);
     return this.send<Task[]>(request);
   }
 
