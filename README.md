@@ -26,6 +26,10 @@ main();
 
 # Change Log
 
+## 0.1.3 => 0.1.4
+
+- perf(aria2): 没必要继承 EventEmitter
+
 ## 0.1.2 => 0.1.3
 
 - perf(model): 更正下数字类型，返回的都是字符串，但是得用数字呀
