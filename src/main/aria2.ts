@@ -1,5 +1,3 @@
-import { EventEmitter } from 'events';
-// import * as WebSocket from 'ws';
 import { Task } from './model';
 import { Pending } from './pending';
 
@@ -43,7 +41,7 @@ export type Method = 'addUri' | 'addTorrent' | 'addMetalink'
  *
  * First, call `connect` method to connect to Aria2RPC.
  */
-export class Aria2 extends EventEmitter {
+export class Aria2 {
 
   private url: string;
   private socket!: WebSocket;
@@ -51,7 +49,6 @@ export class Aria2 extends EventEmitter {
   private map: Map<number, Pending> = new Map();
 
   constructor(private option: Option) {
-    super();
     this.url = `ws${option.secure ? 's' : ''}://${option.host}${option.port ? ':' : ''}${option.port || ''}${option.path}`;
   }
 
