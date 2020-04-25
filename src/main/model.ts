@@ -6,9 +6,9 @@ export interface URI {
 }
 
 export interface File {
-  completedLength: string;
+  completedLength: number;
   index: string;
-  length: string;
+  length: number;
   path: string;
   selected: string;
   uris: URI[];
@@ -32,29 +32,33 @@ export interface Task {
    */
   bittorrent?: Bittorrent;
   /**
+   * **Should be `number`, but return a `string`.**
+   *
    * Completed length of the download in bytes.
    */
-  completedLength: string;
+  completedLength: number;
   /**
    * **Should be `number`, but return a `string`.**
    *
    * The number of peers/servers aria2 has connected to.
    */
-  connections: string;
+  connections: number;
   /**
    * Directory to save files.
    */
   dir: string;
   /**
+   * **Should be `number`, but return a `string`.**
+   *
    * Download speed of this download measured in bytes/sec.
    */
-  downloadSpeed: string;
+  downloadSpeed: number;
   /**
    * **Should be `number`, but return a `string`.**
    *
    * The code of the last error for this item, if any. The value is a string. The error codes are defined in the EXIT STATUS section. This value is only available for stopped/completed downloads.
    */
-  errorCode: string;
+  errorCode: number;
   /**
    * The (hopefully) human readable error message associated to errorCode.
    */
@@ -80,17 +84,21 @@ export interface Task {
    */
   infoHash?: string;
   /**
+   * **Should be `number`, but return a `string`.**
+   *
    * The number of pieces.
    */
-  numPieces: string;
+  numPieces: number;
   /**
    * The number of seeders aria2 has connected to. BitTorrent only.
    */
   numSeeders?: string;
   /**
+   * **Should be `number`, but return a `string`.**
+   *
    * Piece length in bytes.
    */
-  pieceLength: string;
+  pieceLength: number;
   /**
    * true if the local endpoint is a seeder. Otherwise false. BitTorrent only.
    */
@@ -100,21 +108,29 @@ export interface Task {
    */
   status: string;
   /**
+   * **Should be `number`, but return a `string`.**
+   *
    * Total length of the download in bytes.
    */
-  totalLength: string;
+  totalLength: number;
   /**
+   * **Should be `number`, but return a `string`.**
+   *
    * Uploaded length of the download in bytes.
    */
-  uploadLength: string;
+  uploadLength: number;
   /**
+   * **Should be `number`, but return a `string`.**
+   *
    * Upload speed of this download measured in bytes/sec.
    */
-  uploadSpeed: string;
+  uploadSpeed: number;
   /**
+   * **Should be `number`, but return a `string`.**
+   *
    * The number of verified number of bytes while the files are being hash checked. This key exists only when this download is being hash checked.
    */
-  verifiedLength: string;
+  verifiedLength: number;
   /**
    * true if this download is waiting for the hash check in a queue. This key exists only when this download is in the queue.
    */
