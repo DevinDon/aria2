@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.0 => 0.2.1
+
+- feat(aria2): extend `EventEmitter`
+
 ## 0.1.4 => 0.2.0
 
 - perf(aria2): 当调用 `connect` 时再设置连接信息
