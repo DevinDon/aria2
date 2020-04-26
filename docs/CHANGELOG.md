@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.1.4 => 0.2.0
+
+- perf(aria2): 当调用 `connect` 时再设置连接信息
+
 ## 0.1.3 => 0.1.4
 
 - perf(aria2): 没必要继承 EventEmitter
