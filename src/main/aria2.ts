@@ -43,14 +43,13 @@ export type Method = 'addUri' | 'addTorrent' | 'addMetalink'
  */
 export class Aria2 {
 
-  private url: string;
+  private option!: Option;
+  private url!: string;
   private socket!: WebSocket;
   private id: number = 0;
   private map: Map<number, Pending> = new Map();
 
-  constructor(private option: Option) {
-    this.url = `ws${option.secure ? 's' : ''}://${option.host}${option.port ? ':' : ''}${option.port || ''}${option.path}`;
-  }
+  constructor() { }
 
   private generate(method: Method, params: any[] = []) {
 
@@ -111,7 +110,14 @@ export class Aria2 {
    *
    * It will return nothing when success.
    */
-  async connect() {
+  async connect(option: Option = {
+    host: 'localhost',
+    port: 6800,
+    path: '/jsonrpc',
+    secure: false
+  }) {
+    this.option = option;
+    this.url = `ws${option.secure ? 's' : ''}://${option.host}${option.port ? ':' : ''}${option.port || ''}${option.path}`;
     // 这tm是不是有个 bug，为啥 if (WebSocket) 会报错？？？
     // 尝试使用原生 WebSocket
     try {
