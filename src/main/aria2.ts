@@ -1,3 +1,4 @@
+import { EventEmitter } from 'events';
 import { Task } from './model';
 import { Pending } from './pending';
 
@@ -41,7 +42,7 @@ export type Method = 'addUri' | 'addTorrent' | 'addMetalink'
  *
  * First, call `connect` method to connect to Aria2RPC.
  */
-export class Aria2 {
+export class Aria2 extends EventEmitter {
 
   private option!: Option;
   private url!: string;
@@ -49,7 +50,9 @@ export class Aria2 {
   private id: number = 0;
   private map: Map<number, Pending> = new Map();
 
-  constructor() { }
+  constructor() {
+    super();
+  }
 
   private generate(method: Method, params: any[] = []) {
 
@@ -126,6 +129,10 @@ export class Aria2 {
       const WS = require('ws');
       this.socket = new WS(this.url);
     }
+    this.socket.addEventListener('open', event => this.emit('open', event));
+    this.socket.addEventListener('close', event => this.emit('close', event));
+    this.socket.addEventListener('error', error => this.emit('error', error));
+    this.socket.addEventListener('message', message => this.emit('message', message));
     this.socket.onmessage = event => this.parse(event);
     return new Promise((resolve, reject) => {
       this.socket.onopen = event => resolve(event);
